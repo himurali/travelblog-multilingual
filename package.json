@@ -1,0 +1,26 @@
+{
+  "name": "datocms-demo-nextjs-i18n",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build && next export"
+  },
+  "dependencies": {
+    "classnames": "2.3.1",
+    "date-fns": "2.21.1",
+    "next": "^11.1.1",
+    "react": "^17.0.2",
+    "react-datocms": "^1.6.0",
+    "react-dom": "^17.0.2",
+    "tiny-json-http": "^7.3.0"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^4.0.0",
+    "@tailwindcss/typography": "^0.4.0",
+    "dotenv": "8.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "tailwindcss": "^2.0.3"
+  }
+}
