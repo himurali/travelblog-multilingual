@@ -10,8 +10,7 @@ import { metaTagsFragment, responsiveImageFragment } from "../lib/fragments";
 import { useRouter } from "next/router";
 import LanguageBar from "../components/language-bar";
 
-
-export async function getStaticProps({preview, locale}) {
+export async function getStaticProps({ preview, locale }) {
   const formattedLocale = locale.split("-")[0];
   const graphqlRequest = {
     query: `
@@ -31,6 +30,7 @@ export async function getStaticProps({preview, locale}) {
           slug
           excerpt
           date
+          _firstPublishedAt
           coverImage {
             responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
               ...responsiveImageFragment
@@ -41,6 +41,12 @@ export async function getStaticProps({preview, locale}) {
             picture {
               url(imgixParams: {fm: jpg, fit: crop, w: 100, h: 100, sat: -100})
             }
+            slug
+          }
+          category {
+            name
+            description
+            slug
           }
         }
       }
@@ -94,6 +100,7 @@ export default function Index({ subscription }) {
               author={heroPost.author}
               slug={heroPost.slug}
               excerpt={heroPost.excerpt}
+              category={heroPost.category}
             />
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}

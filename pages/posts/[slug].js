@@ -58,6 +58,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
             }
           }
           date
+          _firstPublishedAt
           ogImage: coverImage{
             url(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 })
           }
@@ -71,6 +72,12 @@ export async function getStaticProps({ params, preview = false, locale }) {
             picture {
               url(imgixParams: {fm: jpg, fit: crop, w: 100, h: 100, sat: -100})
             }
+            slug
+          }
+          category {
+            name
+            description
+            slug
           }
         }
 
@@ -79,6 +86,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
           slug
           excerpt
           date
+          _firstPublishedAt
           coverImage {
             responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
               ...responsiveImageFragment
@@ -89,6 +97,12 @@ export async function getStaticProps({ params, preview = false, locale }) {
             picture {
               url(imgixParams: {fm: jpg, fit: crop, w: 100, h: 100, sat: -100})
             }
+            slug
+          }
+          category {
+            name
+            description
+            slug
           }
         }
       }
@@ -137,6 +151,7 @@ export default function Post({ subscription, preview }) {
             coverImage={post.coverImage}
             date={post.date}
             author={post.author}
+            category={post.category}
           />
           <PostBody content={post.content} />
         </article>

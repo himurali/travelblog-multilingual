@@ -1,14 +1,32 @@
-import Avatar from '../components/avatar'
-import Date from '../components/date'
-import CoverImage from '../components/cover-image'
-import PostTitle from '../components/post-title'
+import Avatar from "../components/avatar";
+import Date from "../components/date";
+import CoverImage from "../components/cover-image";
+import PostTitle from "../components/post-title";
+import Category from "../components/category";
 
-export default function PostHeader({ title, coverImage, date, author }) {
+export default function PostHeader({
+  title,
+  coverImage,
+  date,
+  author,
+  category,
+  _firstPublishedAt,
+}) {
   return (
     <>
+      <Category
+        name={category.name}
+        description={category.description}
+        // showDescription={true}
+        slug={category.slug}
+      />
       <PostTitle>{title}</PostTitle>
       <div className="hidden md:block md:mb-12">
-        <Avatar name={author.name} picture={author.picture} />
+        <Avatar
+          name={author.name}
+          picture={author.picture}
+          slug={author.slug}
+        />
       </div>
       <div className="mb-8 md:mb-16 -mx-5 sm:mx-0">
         <CoverImage
@@ -18,12 +36,16 @@ export default function PostHeader({ title, coverImage, date, author }) {
       </div>
       <div className="max-w-2xl mx-auto">
         <div className="block md:hidden mb-6">
-          <Avatar name={author.name} picture={author.picture} />
+          <Avatar
+            name={author.name}
+            picture={author.picture}
+            slug={author.slug}
+          />
         </div>
         <div className="mb-6 text-lg">
           <Date dateString={date} />
         </div>
       </div>
     </>
-  )
+  );
 }
