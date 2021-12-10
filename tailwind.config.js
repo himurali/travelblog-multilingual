@@ -1,6 +1,5 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./components/**/*.js", "./pages/**/*.js"],
   theme: {
     extend: {
       colors: {
@@ -33,16 +32,15 @@ module.exports = {
         lg: {
           css: {
             img: {
-              marginTop: '0',
-              marginBottom: '0',
+              marginTop: "0",
+              marginBottom: "0",
             },
           },
         },
-      }
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/typography")],
 };
