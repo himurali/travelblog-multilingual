@@ -13,12 +13,17 @@ import { metaTagsFragment, responsiveImageFragment } from "@/lib/fragments";
 import LanguageBar from "@/components/language-bar";
 
 export async function getStaticPaths({ locales }) {
-  const data = await request({ query: `{ allPosts { slug category { slug} } }` });
+  const data = await request({
+    query: `{ allPosts { slug category { slug } } }`,
+  });
 
   const pathsArray = [];
   data?.allPosts?.map((post) => {
     locales?.map((language) => {
-      pathsArray.push({ params: { category: post.category.slug, post: post.slug }, locale: language });
+      pathsArray.push({
+        params: { category: post.category.slug, post: post.slug },
+        locale: language,
+      });
     });
   });
 
@@ -122,14 +127,14 @@ export async function getStaticProps({ params, preview = false, locale }) {
     props: {
       subscription: preview
         ? {
-          ...graphqlRequest,
-          initialData: await request(graphqlRequest),
-          token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
-        }
+            ...graphqlRequest,
+            initialData: await request(graphqlRequest),
+            token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
+          }
         : {
-          enabled: false,
-          initialData: await request(graphqlRequest),
-        },
+            enabled: false,
+            initialData: await request(graphqlRequest),
+          },
     },
   };
 }
