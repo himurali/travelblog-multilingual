@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Container from "./container";
 import cn from "classnames";
 import i18n from "../lib/i18n";

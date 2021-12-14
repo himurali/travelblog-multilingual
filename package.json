@@ -1,6 +1,7 @@
 {
   "name": "datocms-demo-nextjs-i18n",
   "version": "1.0.0",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
@@ -21,6 +22,8 @@
     "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.0",
     "dotenv": "10.0.0",
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7",
     "postcss": "^8.4.4",
     "postcss-preset-env": "^7.0.0",
     "tailwindcss": "^3.0.0"
