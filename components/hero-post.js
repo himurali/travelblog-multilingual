@@ -12,7 +12,7 @@ export default function HeroPost({
   author,
   slug,
   category,
-  date,
+  date
 }) {
   return (
     <section>
@@ -21,6 +21,7 @@ export default function HeroPost({
           title={title}
           responsiveImage={coverImage.responsiveImage}
           slug={slug}
+          categorySlug={category.slug}
         />
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
@@ -30,9 +31,10 @@ export default function HeroPost({
             description={category.description}
             // showDescription={true}
             slug={category.slug}
+            
           />
           <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-            <Link as={`/posts/${slug}`} href="/posts/[slug]">
+            <Link as={`/${category.slug}/${slug}`} href={`/${category.slug}/${slug}`}>
               <a className="hover:underline">{title}</a>
             </Link>
           </h3>

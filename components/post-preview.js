@@ -21,6 +21,7 @@ export default function PostPreview({
           slug={slug}
           title={title}
           responsiveImage={coverImage.responsiveImage}
+          categorySlug={category.slug}
         />
       </div>
       <Category
@@ -30,7 +31,7 @@ export default function PostPreview({
         slug={category.slug}
       />
       <h3 className="text-3xl mb-3 leading-snug">
-        <Link as={`/posts/${slug}`} href="/posts/[slug]">
+        <Link as={`/${category.slug}/${slug}`} href={`/${category.slug}/${slug}`}>
           <a className="hover:underline">{title}</a>
         </Link>
       </h3>
