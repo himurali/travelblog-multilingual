@@ -15,8 +15,8 @@ import LanguageBar from "../../components/language-bar";
 export async function getStaticPaths({ locales }) {
   const data = await request({ query: `{ allPosts { slug } }` });
   const pathsArray = [];
-  data.allPosts.map((post) => {
-    locales.map((language) => {
+  data.allPosts?.map((post) => {
+    locales?.map((language) => {
       pathsArray.push({ params: { slug: post.slug }, locale: language });
     });
   });
