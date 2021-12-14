@@ -16,7 +16,7 @@ export async function getStaticPaths({ locales }) {
   const data = await request({ query: `{ allPosts { slug category { slug} } }` });
 
   const pathsArray = [];
-  data.allPosts?.map((post) => {
+  data?.allPosts?.map((post) => {
     locales?.map((language) => {
       pathsArray.push({ params: { category: post.category.slug, post: post.slug }, locale: language });
     });
