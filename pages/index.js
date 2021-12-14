@@ -83,7 +83,7 @@ export default function Index({ subscription }) {
 
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
-  const metaTags = blog.seo.concat(site.favicon);
+  const metaTags = blog.seo?.concat(site.favicon);
 
   return (
     <>
