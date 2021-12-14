@@ -139,7 +139,7 @@ export default function Post({ subscription, preview }) {
     data: { site, post, morePosts },
   } = useQuerySubscription(subscription);
 
-  const metaTags = post.seo?.concat(site.favicon);
+  const metaTags = post?.seo?.concat(site.favicon);
 
   return (
     <Layout preview={preview}>
