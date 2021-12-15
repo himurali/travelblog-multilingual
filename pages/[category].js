@@ -50,7 +50,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
 
     const graphqlRequest = {
         query: `
-        query PostBySlug($slug: String) {
+        query CategoryBySlug($slug: String) {
           site: _site {
             favicon: faviconMetaTags {
               ...metaTagsFragment
@@ -68,7 +68,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
       `,
         preview,
         variables: {
-            slug: params.slug,
+            slug: params.category,
         },
     };
 
