@@ -10,7 +10,7 @@ export default function Date({ dateString }) {
 
       {format(date, "d 'de' LLLL 'de' yyyy", { locale: es })}
 
-      {format(date, "d 'de' LLLL 'de' yyyy", { locale: pt })}
+      {format(date, "d 'de' LLLL, yyyy", { locale: pt })}
 
       {format(date, "d LLLL yyyy", { locale: it })}
     </time>
