@@ -47,7 +47,7 @@ export async function getStaticPaths({ locales }) {
 
 export async function getStaticProps({ params, preview = false, locale }) {
     const formattedLocale = locale.split("-")[0];
-    console.log(params, 'params')
+    
     const graphqlRequest = {
         query: `
         query CategoryBySlug($slug: String) {
@@ -57,6 +57,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
             }
           }
           category(locale: ${formattedLocale}, filter: {slug: {eq: $slug}}) {
+            id
             name
             slug
             description
@@ -66,6 +67,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
                 value
               }
           }
+
         }
   
         ${metaTagsFragment}
@@ -76,17 +78,53 @@ export async function getStaticProps({ params, preview = false, locale }) {
         },
     };
 
+    let result = await request(graphqlRequest); // get categories result
+
+    const allPostsRequest = {
+        query: `
+            query AllPosts {
+                allPosts(locale: ${formattedLocale}, orderBy: date_DESC, first: 20, filter: {category: {eq: "${result.category.id}"}}) {
+                    title
+                    slug
+                    excerpt
+                    date
+                    _firstPublishedAt
+                    coverImage {
+                      responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
+                        ...responsiveImageFragment
+                      }
+                    }
+                    author {
+                      name
+                      picture {
+                        url(imgixParams: {fm: jpg, fit: crop, w: 100, h: 100, sat: -100})
+                      }
+                      slug
+                    }
+                    category {
+                      name
+                      description
+                      slug
+                    }
+                  }
+            }
+            ${responsiveImageFragment}
+        `
+    }
+
+    let posts = await request(allPostsRequest);
+
     return {
         props: {
             subscription: preview
                 ? {
                     ...graphqlRequest,
-                    initialData: await request(graphqlRequest),
+                    initialData: {...result, ...posts},
                     token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
                 }
                 : {
                     enabled: false,
-                    initialData: await request(graphqlRequest),
+                    initialData: {...result, ...posts},
                 },
         },
     };
@@ -95,7 +133,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
 export default function Category({ subscription, preview }) {
 
     const {
-        data: { site, category },
+        data: { site, category, allPosts },
     } = useQuerySubscription(subscription);
 
     const metaTags = category?.seo?.concat(site.favicon);
@@ -115,6 +153,7 @@ export default function Category({ subscription, preview }) {
                             </div>
                         </div>
                     </article>
+                    <MoreStories posts={allPosts} />
                 </Container>
             </Layout>
         </>
