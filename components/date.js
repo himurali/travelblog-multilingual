@@ -4,16 +4,27 @@ const { es, pt, it } = require("date-fns/locale");
 
 export default function Date({ dateString }) {
   const date = parseISO(dateString);
-  let { locale } = userRouter();
+  let { locale } = useRouter();
+
+  let dateStr = () => {
+    switch (locale) {
+      case 'pt':
+        return format(date, "d 'de' LLLL, yyyy", { locale: pt });
+        break;
+      case 'es':
+        return format(date, "d 'de' LLLL 'de' yyyy", { locale: es });
+        break;
+      case 'it':
+        return format(date, "d LLLL yyyy", { locale: it });
+        break;
+      default:
+        return format(date, "LLLL	d, yyyy");
+        break;
+    }
+  }
   return (
     <time dateTime={dateString}>
-      {format(date, "LLLL	d, yyyy")}
-
-      {format(date, "d 'de' LLLL 'de' yyyy", { locale: es })}
-
-      {format(date, "d 'de' LLLL, yyyy", { locale: pt })}
-
-      {format(date, "d LLLL yyyy", { locale: it })}
+      {dateStr()}
     </time>
   );
 }
