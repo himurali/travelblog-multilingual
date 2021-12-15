@@ -3,7 +3,7 @@
 This example showcases a Next.js multi-language blog using [DatoCMS](https://www.datocms.com/) as the data source. It fully supports [Preview Mode](https://www.datocms.com/docs/next-js/setting-up-next-js-preview-mode) with [DatoCMS real-time updates](https://www.datocms.com/docs/next-js/real-time-updates).
 
 The purpose of this repo is to have a quick start reference that can be set up with the "one-click" button below. This is what the end result looks like:
-#### [https://nextjs-demo-i18n.vercel.app/](https://nextjs-demo-i18n.vercel.app/)
+#### [https://travelblog-multilingual.vercel.app/](https://travelblog-multilingual.vercel.app/)
 
 ## How to use
 
@@ -15,7 +15,7 @@ The purpose of this repo is to have a quick start reference that can be set up w
 
 3. Let DatoCMS set everything up for you clicking this button:
 
-  [![Deploy with DatoCMS](https://dashboard.datocms.com/deploy/button.svg)](https://dashboard.datocms.com/deploy?repo=datocms/nextjs-demo-i18n)
+  [![Deploy with DatoCMS](https://dashboard.datocms.com/deploy/button.svg)](https://dashboard.datocms.com/deploy?repo=Wunderman-Thompson-Portugal/travelblog-multilingual)
 
 ### Local setup
 
