@@ -14,29 +14,42 @@ import LanguageBar from "@/components/language-bar";
 import PostTitle from "@/components/post-title";
 
 export async function getStaticPaths({ locales }) {
-  const data = await request({ query: `{ allCategories { slug } }` });
+    const data = await request(
+        {
+            query: `
+            {
+                allCategories {
+                  slug
+                  _allSlugLocales {
+                    locale
+                    value
+                  }
+                }
+              }
+            `
+        });
 
-  const pathsArray = [];
-  data?.allCategories?.map((category) => {
-    locales?.map((language) => {
-      pathsArray.push({
-        params: { category: category.slug },
-        locale: language,
-      });
+    const pathsArray = [];
+    data?.allCategories?.map((category) => {
+        category?._allSlugLocales.map(slugs => {
+            pathsArray.push({
+                params: { category: slugs.value },
+                locale: slugs.locale,
+            });
+        })
     });
-  });
 
-  return {
-    paths: pathsArray,
-    fallback: false,
-  };
+    return {
+        paths: pathsArray,
+        fallback: false,
+    };
 }
 
 export async function getStaticProps({ params, preview = false, locale }) {
-  const formattedLocale = locale.split("-")[0];
+    const formattedLocale = locale.split("-")[0];
 
-  const graphqlRequest = {
-    query: `
+    const graphqlRequest = {
+        query: `
         query PostBySlug($slug: String) {
           site: _site {
             favicon: faviconMetaTags {
@@ -53,53 +66,53 @@ export async function getStaticProps({ params, preview = false, locale }) {
   
         ${metaTagsFragment}
       `,
-    preview,
-    variables: {
-      slug: params.slug,
-    },
-  };
+        preview,
+        variables: {
+            slug: params.slug,
+        },
+    };
 
-  return {
-    props: {
-      subscription: preview
-        ? {
-            ...graphqlRequest,
-            initialData: await request(graphqlRequest),
-            token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
-          }
-        : {
-            enabled: false,
-            initialData: await request(graphqlRequest),
-          },
-    },
-  };
+    return {
+        props: {
+            subscription: preview
+                ? {
+                    ...graphqlRequest,
+                    initialData: await request(graphqlRequest),
+                    token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
+                }
+                : {
+                    enabled: false,
+                    initialData: await request(graphqlRequest),
+                },
+        },
+    };
 }
 
 export default function Category({ subscription, preview }) {
-  console.log(subscription);
-  const {
-    data: { site, category },
-  } = useQuerySubscription(subscription);
+    console.log(subscription);
+    const {
+        data: { site, category },
+    } = useQuerySubscription(subscription);
 
-  const metaTags = category?.seo?.concat(site.favicon);
+    const metaTags = category?.seo?.concat(site.favicon);
 
-  return (
-    <>
-      <Layout preview={preview}>
-        <Container>
-          <LanguageBar />
+    return (
+        <>
+            <Layout preview={preview}>
+                <Container>
+                    <LanguageBar />
 
-          <Header />
-          <article>
-            <PostTitle>{category.name}</PostTitle>
-            <div className="mx-auto">
-              <div className="prose prose-lg prose-blue max-w-none">
-                <p>{category.description}</p>
-              </div>
-            </div>
-          </article>
-        </Container>
-      </Layout>
-    </>
-  );
+                    <Header />
+                    <article>
+                        <PostTitle>{category.name}</PostTitle>
+                        <div className="mx-auto">
+                            <div className="prose prose-lg prose-blue max-w-none">
+                                <p>{category.description}</p>
+                            </div>
+                        </div>
+                    </article>
+                </Container>
+            </Layout>
+        </>
+    );
 }

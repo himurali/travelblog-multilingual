@@ -15,17 +15,37 @@ import LanguageBar from "@/components/language-bar";
 
 export async function getStaticPaths({ locales }) {
   const data = await request({
-    query: `{ allPosts { slug category { slug } } }`,
+    query: `
+    {
+      allPosts {
+        slug
+        _allSlugLocales {
+          locale
+          value
+        }
+        category {
+          slug
+          _allSlugLocales {
+          locale
+          value
+        }
+        }
+      }
+    }`,
   });
 
   const pathsArray = [];
   data?.allPosts?.map((post) => {
-    locales?.map((language) => {
+    post?._allSlugLocales.map(slug => {
       pathsArray.push({
-        params: { category: post.category.slug, post: post.slug },
-        locale: language,
+        params: {
+          post: slug.value,
+          category: post.category._allSlugLocales
+            .filter(category => category.locale == slug.locale)[0].value
+        },
+        locale: slug.locale,
       });
-    });
+    })
   });
 
   return {
@@ -128,14 +148,14 @@ export async function getStaticProps({ params, preview = false, locale }) {
     props: {
       subscription: preview
         ? {
-            ...graphqlRequest,
-            initialData: await request(graphqlRequest),
-            token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
-          }
+          ...graphqlRequest,
+          initialData: await request(graphqlRequest),
+          token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
+        }
         : {
-            enabled: false,
-            initialData: await request(graphqlRequest),
-          },
+          enabled: false,
+          initialData: await request(graphqlRequest),
+        },
     },
   };
 }
