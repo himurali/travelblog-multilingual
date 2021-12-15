@@ -1,9 +1,10 @@
 import { parseISO, format } from "date-fns";
+import { useRouter } from "next/router";
 const { es, pt, it } = require("date-fns/locale");
 
 export default function Date({ dateString }) {
   const date = parseISO(dateString);
-  console.log(date);
+  let { locale } = userRouter();
   return (
     <time dateTime={dateString}>
       {format(date, "LLLL	d, yyyy")}
