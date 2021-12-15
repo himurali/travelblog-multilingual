@@ -8,22 +8,22 @@ export default function Date({ dateString }) {
 
   let dateStr = () => {
     switch (locale) {
-      case 'pt':
+      case "pt":
         return format(date, "d 'de' LLLL, yyyy", { locale: pt });
         break;
-      case 'es':
+      case "es":
         return format(date, "d 'de' LLLL 'de' yyyy", { locale: es });
         break;
-      case 'it':
+      case "it":
         return format(date, "d LLLL yyyy", { locale: it });
         break;
       default:
         return format(date, "LLLL	d, yyyy");
         break;
     }
-  }
+  };
   return (
-    <time dateTime={dateString}>
+    <time dateTime={dateString} className="text-stone-600 text-sm">
       {dateStr()}
     </time>
   );

@@ -32,7 +32,7 @@ export default function HeroPost({
             // showDescription={true}
             slug={category.slug}
           />
-          <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
+          <h3 className="mb-4 text-4xl lg:text-6xl leading-tight font-bold">
             <Link
               as={`/${category.slug}/${slug}`}
               href={`/${category.slug}/${slug}`}

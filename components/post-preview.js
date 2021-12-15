@@ -30,8 +30,11 @@ export default function PostPreview({
         // showDescription={true}
         slug={category.slug}
       />
-      <h3 className="text-3xl mb-3 leading-snug">
-        <Link as={`/${category.slug}/${slug}`} href={`/${category.slug}/${slug}`}>
+      <h3 className="text-3xl mb-3 leading-snug font-bold">
+        <Link
+          as={`/${category.slug}/${slug}`}
+          href={`/${category.slug}/${slug}`}
+        >
           <a className="hover:underline">{title}</a>
         </Link>
       </h3>
