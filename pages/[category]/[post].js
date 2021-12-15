@@ -71,6 +71,10 @@ export async function getStaticProps({ params, preview = false, locale }) {
           }
           title
           slug
+          _allSlugLocales {
+            locale
+            value
+          }
           content {
             value
             blocks {
@@ -106,6 +110,10 @@ export async function getStaticProps({ params, preview = false, locale }) {
             name
             description
             slug
+            _allSlugLocales {
+              locale
+              value
+            }
           }
         }
 
