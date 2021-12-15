@@ -47,7 +47,7 @@ export async function getStaticPaths({ locales }) {
 
 export async function getStaticProps({ params, preview = false, locale }) {
     const formattedLocale = locale.split("-")[0];
-
+    console.log(params, 'params')
     const graphqlRequest = {
         query: `
         query CategoryBySlug($slug: String) {
@@ -61,6 +61,10 @@ export async function getStaticProps({ params, preview = false, locale }) {
             slug
             description
             _firstPublishedAt
+            _allSlugLocales {
+                locale
+                value
+              }
           }
         }
   
