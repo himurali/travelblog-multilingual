@@ -89,7 +89,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
 }
 
 export default function Category({ subscription, preview }) {
-    console.log(subscription);
+
     const {
         data: { site, category },
     } = useQuerySubscription(subscription);

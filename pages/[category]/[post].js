@@ -40,7 +40,7 @@ export async function getStaticPaths({ locales }) {
       pathsArray.push({
         params: {
           post: slug.value,
-          category: post.category._allSlugLocales
+          category: post?.category?._allSlugLocales
             .filter(category => category.locale == slug.locale)[0].value
         },
         locale: slug.locale,
@@ -140,7 +140,7 @@ export async function getStaticProps({ params, preview = false, locale }) {
     `,
     preview,
     variables: {
-      slug: params.slug,
+      slug: params.post,
     },
   };
 
