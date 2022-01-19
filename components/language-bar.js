@@ -46,7 +46,7 @@ export default function LanguageBar() {
         })
     }
     setLanguageMapper(paths)
-  }, []);
+  }, [router]);
 
   // setLanguageMapper(paths)
   
